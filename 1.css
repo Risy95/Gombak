@@ -1,0 +1,63 @@
+body{
+	background-color:#208000;
+	background-image:url("../kepek/Háttér3.jpg");
+	background-position:center;
+	background-repeat:repeat-y;
+	text-align:center;
+	margin:0px;
+    overflow:scroll;
+}
+.navbar-nav{
+	margin: 0% 15% 0% 15% !important;
+}
+.navbar, .collapse{
+	padding-top: 0px;
+}
+.navbar-brand{
+	margin-left: 5% !important;
+	font-size: 40px;
+}
+.bg-dark{
+	background-color: #208000 !important;
+}
+a.menu{
+	font-size: 30px;
+}
+a.menu:link, a.menu:visited{
+	text-decoration:none;
+	border-color:#309020;
+	border-width:0px 5px 5px 5px;
+	border-style:solid;
+	padding:20px 10px 10px 10px !important;
+	color:#ffe0a0 !important;
+	margin: 0px 10px 0px 10px !important;
+}
+a.menu:hover{
+	text-decoration:none;
+	background-color:#309020;
+}
+a.menu:active{
+	background-color:#309020;
+	border-color:#60b020;
+}
+div.container-fluid{
+	padding-left:20%;
+	padding-right:20%;
+	text-align:left;
+}
+.imp{
+	color:brown;
+	font-weight:bold;
+}
+hr{
+	border-color:#208000;
+}
+.good{
+	border:5px solid #208000;
+}
+.bad{
+	border:5px solid red
+}
+.row{
+	text-align: center;
+}
