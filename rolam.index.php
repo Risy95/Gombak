@@ -1,10 +1,10 @@
-<? //xml version = "1.0" encoding = "UTF-8"?>
+<?/* xml version = "1.0" encoding = "UTF-8"*/?>
 <!DOCTYPE html PUBLIC>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="hu" lang="hu">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109701271-1"></script>
-    <script>
+    <!--<script>
         window.dataLayer = window.dataLayer || [];
         function gtag() {
             dataLayer.push(arguments);
@@ -12,7 +12,16 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-109701271-1');
-    </script>
+    </script>-->
+
+    <style>
+        label {
+            display: block;
+        }
+        .error {
+            color: #f00;
+        }
+    </style>
 
 <title>Rólam</title>
 <meta charset="utf-8"/>
@@ -53,7 +62,7 @@
 ?>
 
 <script
-    src="https://code.jquery.com/jquery-3.4.1.js"
+    src="../javascript/jquery-3.4.1.js"
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
 
@@ -65,11 +74,11 @@
 
         errors=false;
 
-        if($.trim($("#usern").val())==""){
-            $("#usern_error").text("Username is required");
+        if($.trim($("#uname").val())==""){
+            $("#uname_error").text("Írja be a kívánt felhasználónevet.");
             errors=true;
         }
-        else{$("#usern_error").text("");}
+        else{$("#uname_error").text("");}
 
         var passwValue=$.trim($("#passw").val());
         if(passwValue==""){
@@ -93,26 +102,26 @@
 
         var emailValue=$.trim($("#email").val());
         if(emailValue==""){
-            $("#email_error").text("E-mail address is required");
+            $("#email_error").text("Írja be az e-mail címét.");
             errors=true;
         }
-        else if(emailValue.length>=30){
-            $("#email_error").text("E-mail address is too long");
+        else if(emailValue.length>=50){
+            $("#email_error").text("Az e-mail cím legfeljebb 50 karakter lehet.");
             errors=true;
         }
         else if(emailValue.indexOf('@') < 0 || emailValue.indexOf('.') < 0){
-            $("#email_error").text("Invalid e-mail address");
+            $("#email_error").text("Érvénytelen e-mail cím.");
             errors=true;
         }else{$("#email_error").text("");}
 
         if($.trim($("#fname").val())==""){
-            $("#firstn_error").text("First name is required");
+            $("#fname_error").text("Írja be a keresztnevét.");
             errors=true;
         }
         else{$("#fname_error").text("");}
 
         if($.trim($("#lname").val())==""){
-            $("#lname_error").text("Last name is required");
+            $("#lname_error").text("Írja be a vezetéknevét.");
             errors=true;
         }
         else{$("#lname_error").text("");}
@@ -167,7 +176,7 @@
 </script>
 
 <!--<hr class="tb"/>-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
     <!-- Brand -->
     <a class="navbar-brand" href="../../Gombak">Gombák</a>
@@ -215,7 +224,7 @@
 
        <table border="0" align="center" width="600">
             <tr>
-                <td align="right"><b>Username:</b></td>
+                <td align="right"><b>Felhasználónév:</b></td>
                 <td align="left" colspan="2"><input type="text" name="usern" size="30"></td>
             </tr>
 
@@ -224,7 +233,7 @@
             </tr>
 
             <tr>
-                <td align="right"><b>Password:</b></td>
+                <td align="right"><b>Jelszó:</b></td>
                 <td align="left" colspan="2"><input type="password" name="passw" size="30"></td>
             </tr>
 
@@ -262,13 +271,16 @@
     ?>
 <hr><hr>
 
-    <form method="post" name="register" id="register" action="register.php">
+    <form method="post" name="register" action="register.php" id="register">
 
         <table border="0" align="center" width="600">
             <tr>
-                <td align="right"><b>Username:</b></td>
-                <td align="left" colspan="2"><input type="text" name="username" size="30" id="usern"> *</td>
-                <div class="error" id="usern_error"></div>
+                <td align="right"><b>Felhasználónév:</b></td>
+                <td align="left" colspan="2"><input type="text" name="username" size="30" id="uname"> *</td>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="uname_error"></td>
             </tr>
 
             <tr>
@@ -276,9 +288,12 @@
             </tr>
 
             <tr>
-                <td align="right"><b>Password:</b></td>
+                <td align="right"><b>Jelszó:</b></td>
                 <td align="left" colspan="2"><input type="password" name="password" size="30" id="passw"> *</td>
-                <div class="error" id="passw_error"></div>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="passw_error"></td>
             </tr>
 
             <tr>
@@ -286,9 +301,12 @@
             </tr>
 
             <tr>
-                <td align="right"><b>Password again:</b></td>
+                <td align="right"><b>Jelszó ismét:</b></td>
                 <td align="left" colspan="2"><input type="password" name="passwordRe" size="30" id="passwRe"> *</td>
-                <div class="error" id="passw_error"></div>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="passwRe_error"></td>
             </tr>
 
             <tr>
@@ -296,9 +314,12 @@
             </tr>
 
             <tr>
-                <td align="right"><b>Firstname:</b></td>
-                <td align="left" colspan="2"><input type="text" name="firstname" size="30" id="firstn"> *</td>
-                <div class="error" id="firstn_error"></div>
+                <td align="right"><b>Keresztnév:</b></td>
+                <td align="left" colspan="2"><input type="text" name="firstname" size="30" id="fname"> *</td>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="fname_error"></td>
             </tr>
 
             <tr>
@@ -306,9 +327,12 @@
             </tr>
 
             <tr>
-                <td align="right"><b>Lastname:</b></td>
-                <td align="left" colspan="2"><input type="text" name="lastname" size="30" id="lastn"> *</td>
-                <div class="error" id="lastn_error"></div>
+                <td align="right"><b>Vezetéknév:</b></td>
+                <td align="left" colspan="2"><input type="text" name="lastname" size="30" id="lname"> *</td>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="lname_error"></td>
             </tr>
 
             <tr>
@@ -318,7 +342,10 @@
             <tr>
                 <td align="right"><b>E-mail:</b></td>
                 <td align="left" colspan="2"><input type="email" name="email" size="30" id="email"> *</td>
-                <div class="error" id="email_error"></div>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center" class="error" id="email_error"></td>
             </tr>
 
             <tr>
@@ -330,7 +357,7 @@
             </tr>
 
             <tr>
-                <td align="right" width="150"><b>Security code:</b></td>
+                <td align="right" width="150"><b>Captcha kód:</b></td>
                 <td align="left" width="50"><input type="text" name="code" size="8"></td>
                 <td align="left" width="250"><img src="captcha.php" border="0" alt="code"> *</td>
             </tr>
@@ -342,8 +369,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td align="left" colspan="2">
-                    <input type="submit" name="sd" value="register">&nbsp;
-                    <input type="reset" name="rd" value="cancel"></td>
+                    <button id="reg">Regisztrálok</button>
             </tr>
 
         </table>
@@ -372,6 +398,8 @@
 
     if ($p == "1")
         echo "<div class=\"imp\">Error in the security code!</div>";
+
+///////////////////////////////////        EMAIL
 
     ?>
     <br>
