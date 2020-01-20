@@ -18,74 +18,39 @@ $errors['email']='';
 $data= array();
 $a=0;
 
-if($passwd==$passwdRe)
-{
-    $sql="INSERT INTO tagok (felhasznalonev, jelszo, keresztnev, vezeteknev, email, reg_datum)
-VALUES ('$uname', '$passwd', '$fname', '$lname', '$email', now())";
-//$query = mysqli_query($connection, $sql);
+if (empty($email)){
+    $errors['email']='E-mail address is required.'; $a++;}
+else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+    $errors['email']='Invalid e-mail address.'; $a++;
+}else{
+    $sql="SELECT email FROM tagok";
     $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
-}
-header("Location:../rolam");
-
-if (empty($email)){
-    $errors['email']='E-mail address is required.'; $a++;}
-else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    $errors['email']='Invalid e-mail address.'; $a++;
-}else{
-    $sqli="SELECT e_mail FROM registrations";
-    $result = mysqli_query($con, $sqli) or die(mysqli_error($con));
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)){
-            if($row['e_mail']==$email){
+            if($row['email']==$email){
                 $errors['email']='E-mail address already in use.'; $a++;
             }
         }
     }
 }
 
-//////
-
-///////
-
-////////
-
-
-
-
-$con=mysqli_connect("localhost","root","","mandatory");
-if (mysqli_connect_errno())
-{
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
-
-if (empty($email)){
-    $errors['email']='E-mail address is required.'; $a++;}
-else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    $errors['email']='Invalid e-mail address.'; $a++;
-}else{
-    $sqli="SELECT e_mail FROM registrations";
-    $result = mysqli_query($con, $sqli) or die(mysqli_error($con));
-    if (mysqli_num_rows($result) > 0) {
-        while($row = mysqli_fetch_assoc($result)){
-            if($row['e_mail']==$email){
-                $errors['email']='E-mail address already in use.'; $a++;
-            }
-        }
-    }
-}
-
+if (empty($uname)){
+    $errors['uname']='Írja be a kívánt felhasználónevet.'; $a++;}
 
 if (empty($fname)){
-    $errors['fname']='First name is required.'; $a++;}
+    $errors['fname']='Írja be a keresztnevét.'; $a++;}
 
 if (empty($lname)){
-    $errors['lname']='Last name is required.'; $a++;}
+    $errors['lname']='Írja be a vezetéknevét.'; $a++;}
 
-if (empty($address)){
-    $errors['address']='Address is required.'; $a++;}
+if (empty($passwd)){
+    $errors['passwd']='Írjon be jelszavat.'; $a++;}
 
-if (empty($occup)){
-    $errors['occup']='Occupation is required.'; $a++;}
+if (empty($passwdRe)){
+    $errors['passwdRe']='Írja be mégegyszer a jelszavat. '; $a++;}
+
+if ($passwd!==$passwdRe){
+    $errors['passwdRe']='A két jelszónak egyeznie kell.'; $a++;}
 
 if ($a>0) {
 
@@ -93,10 +58,11 @@ if ($a>0) {
     $data['errors']  = $errors;
 } else {
 
-    $sql="INSERT INTO registrations (e_mail, first_name, last_name, address, occupation) VALUES ('$email', '$fname', '$lname', '$address', '$occup')";
-    if (!mysqli_query($con,$sql))
+    $sql="INSERT INTO tagok (felhasznalonev, jelszo, keresztnev, vezeteknev, email, reg_datum)
+VALUES ('$uname', '$passwd', '$fname', '$lname', '$email', now())";
+    if (!mysqli_query($connection,$sql))
     {
-        die('Error: ' . mysqli_error($con));
+        die('Error: ' . mysqli_error($connection));
     }
 
     $data['success'] = true;
@@ -104,4 +70,4 @@ if ($a>0) {
 }
 echo json_encode($data);
 
-mysqli_close($con);
+mysqli_close($connection);
