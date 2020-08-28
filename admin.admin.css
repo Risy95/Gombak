@@ -1,0 +1,17 @@
+.bg-dark{
+    background-color: #206000 !important;
+}
+a.menu:link, a.menu:visited{
+    border-color:#307020;
+    color:#dfc080 !important;
+}
+a.menu:hover{
+    background-color:#307020;
+}
+a.menu:active{
+    background-color:#307020;
+    border-color:#609020;
+}
+hr{
+    border-color:#206000;
+}
