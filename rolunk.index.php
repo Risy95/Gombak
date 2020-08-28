@@ -18,7 +18,6 @@
         label {
             display: block;
         }
-
         .error {
             color: #f00;
         }
