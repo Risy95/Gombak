@@ -4,15 +4,17 @@
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109701271-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!--<script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-  gtag('config', 'UA-109701271-1');
-</script>
+            gtag('config', 'UA-109701271-1');
+        </script>-->
 
-    <title>Gombák</title>
+    <title>Gombások</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Kovács Kristóf"/>
@@ -27,10 +29,10 @@
     <meta name="HandheldFriendly" content="true"/>
     <meta name="google" content="notranslate"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="http://gombak.000webhostapp.com"/>
-    <meta property="og:title" content="Gombák - Ismerje meg jobban a gombákat"/>
-    <meta property="og:site_name" content="Gombák"/>
-    <meta property="og:description" content="Tudjon meg többet a gombákről, hogy jóízűen elfogyaszthassa őket."/>
+    <meta property="og:url" content="http://gombasok.000webhostapp.com"/>
+    <meta property="og:title" content="Gombások - Ismerje meg velünk a gombákat"/>
+    <meta property="og:site_name" content="Gombások"/>
+    <meta property="og:description" content="Tudjon meg többet a gombákról, hogy jóízűen elfogyaszthassa őket."/>
     <meta property="og:image:type" content="image/jpg"/>
 <!--    <meta property="og:image" content="http://gombak.000webhostapp.com/kepek/gyapjas4.jpg"/>-->
     <meta property="og:image:width" content="556"/>
@@ -45,11 +47,16 @@
 
 </head>
 <body>
+
+<?php ////////////////////////////////////////////////////////////SESSION
+session_start();
+?>
+
 <!--<hr class="tb"/>-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="../Gombak">Gombák</a>
+    <a class="navbar-brand" href="../Gombasok">Gombások</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,13 +76,57 @@
                 <a class="nav-link menu" href="szabalyok">Szabályok</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link menu" href="rolam">Rólam</a>
+                <a class="nav-link menu" href="rolunk">Rólunk
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu" href="logout.php?pn=00"><img src="kepek/logout.png" alt="kijelentkezés" height="45"/></a>
             </li>
         </ul>
     </div>
 </nav>
+
+
+
 <div class="container-fluid">
   <br /><hr /><br />
+
+    <?php
+
+    ////////////////////////////////////
+
+    include "db_config.php";
+
+    @$p=$_GET["code"];
+    if(!empty($p)) {
+        $sql = "SELECT id_tag FROM tagok where id_tag=$p";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        if (mysqli_num_rows($result) > 0) {
+
+            $sql = "UPDATE tagok SET allapot=1 WHERE id_tag=$p";
+            if (!mysqli_query($conn, $sql)) {
+                echo "Hiba történt az aktiválás folyamán.<br>";
+                die('Error: ' . mysqli_error($conn));
+            }
+            echo '<h1>Felhasználó aktiválva</h1><br><hr><br>';
+
+        }
+    }
+
+    /*if (!isset($_SESSION["log"]) || empty($_SESSION["log"])) {
+        unset($_SESSION["log"]);
+        echo "Nincs bejelentkezve.<br><hr><br>";
+
+    } else {
+        echo "Be van jelentkezve.<br><hr><br>";
+    }*/
+
+
+
+    ////////////////////////////////////
+
+    ?>
+
   <div><h2>                                                       <!--  szöveg  -->
   Üdvözlöm! Ha szeretne többet megtudni a gombákról, akkor jó helyen jár! </h2>
   <br />
