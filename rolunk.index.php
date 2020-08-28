@@ -1,4 +1,4 @@
-<?/* xml version = "1.0" encoding = "UTF-8"*/?>
+<? /* xml version = "1.0" encoding = "UTF-8"*/ ?>
 <!DOCTYPE html PUBLIC>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="hu" lang="hu">
 <head>
@@ -18,47 +18,48 @@
         label {
             display: block;
         }
+
         .error {
             color: #f00;
         }
     </style>
-
-<title>Rólam</title>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Kovács Kristóf"/>
-<meta name="description" content="Egy webhely, ahol jobban meg lehet ismerni a gombákat"/>
-<meta name="keywords" content="gomba, ehető, mérgező, szabályok, gombagyűjtés, fajták,  "/>
-<meta name="robots" content="index, follow"/>
-<meta name="language" content="Hungarian"/>
-<meta name="googlebot" content="index, follow"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv="content-language" content="HU"/>
-<meta name="MobileOptimized" content="width"/>
-<meta name="HandheldFriendly" content="true"/>
-<meta name="google" content="notranslate"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="http://gombak.000webhostapp.com"/>
-<meta property="og:title" content="Gombák - Ismerje meg jobban a gombákat"/>
-<meta property="og:site_name" content="Gombák"/>
-<meta property="og:description" content="Tudjon meg többet a gombákről, hogy jóízűen elfogyaszthassa őket."/>
-<meta property="og:image:type" content="image/jpg"/>
-<!--    <meta property="og:image" content="http://gombak.000webhostapp.com/kepek/gyapjas4.jpg"/>-->
-<meta property="og:image:width" content="556"/>
-<meta property="og:image:height" content="720"/>
-<meta property="og:locale" content="hu_HU"/>
-<meta property="og:locale:alternate" content="en_US"/>
-<!--    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link type="text/css" rel="stylesheet" href="../css/1.css" />
-<!--    <link rel="shortcut icon" href="http://gombak.000webhostapp.com/kepek/gyapjas4.jpg" type="image/x-icon"/>-->
-<link rel="shortcut icon" href="../kepek/gyapjas4.jpg" type="image/x-icon"/>
+    <title>Rólunk</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Kovács Kristóf"/>
+    <meta name="description" content="Egy webhely, ahol jobban meg lehet ismerni a gombákat"/>
+    <meta name="keywords" content="gomba, ehető, mérgező, szabályok, gombagyűjtés, fajták,  "/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="language" content="Hungarian"/>
+    <meta name="googlebot" content="index, follow"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-language" content="HU"/>
+    <meta name="MobileOptimized" content="width"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="google" content="notranslate"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://gombasok.000webhostapp.com"/>
+    <meta property="og:title" content="Gombások - Ismerje meg velünk a gombákat"/>
+    <meta property="og:site_name" content="Gombások"/>
+    <meta property="og:description" content="Tudjon meg többet a gombákról, hogy jóízűen elfogyaszthassa őket."/>
+    <meta property="og:image:type" content="image/jpg"/>
+    <!--    <meta property="og:image" content="http://gombak.000webhostapp.com/kepek/gyapjas4.jpg"/>-->
+    <meta property="og:image:width" content="556"/>
+    <meta property="og:image:height" content="720"/>
+    <meta property="og:locale" content="hu_HU"/>
+    <meta property="og:locale:alternate" content="en_US"/>
+    <!--    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="../css/1.css"/>
+    <!--    <link rel="shortcut icon" href="http://gombak.000webhostapp.com/kepek/gyapjas4.jpg" type="image/x-icon"/>-->
+    <link rel="shortcut icon" href="../kepek/gyapjas4.jpg" type="image/x-icon"/>
 
 </head>
 <body>
 
 <?php
-    session_start();
+session_start();
 ?>
 
 <script
@@ -68,92 +69,106 @@
 
 <script style="text/javascript">
 
-    var errors=false;
+    var errors = false;
 
-    function checkForm(){
+    function checkForm() {
 
-        errors=false;
+        errors = false;
 
-        if($.trim($("#uname").val())==""){
+        if ($.trim($("#uname").val()) == "") {
             $("#uname_error").text("Írja be a kívánt felhasználónevet.");
-            errors=true;
+            errors = true;
         }
-        else{$("#uname_error").text("");}
+        else {
+            $("#uname_error").text("");
+        }
 
-        var passwValue=$.trim($("#passw").val());
-        if(passwValue==""){
+        var passwValue = $.trim($("#passw").val());
+        if (passwValue == "") {
             $("#passw_error").text("Írjon be jelszavat.");
-            errors=true;
+            errors = true;
         }
-        else{$("#passw_error").text("");}
+        else {
+            $("#passw_error").text("");
+        }
 
-        var passwReValue=$.trim($("#passwRe").val());
-        if(passwReValue==""){
+        var passwReValue = $.trim($("#passwRe").val());
+        if (passwReValue == "") {
             $("#passwRe_error").text("Írja be ismét a jelszavat.");
-            errors=true;
+            errors = true;
         }
-        else{$("#passwRe_error").text("");}
+        else {
+            $("#passwRe_error").text("");
+        }
 
-        if(passwReValue!==passwValue){
+        if (passwReValue !== passwValue) {
             $("#passwRe_error").text("A jelszavaknak egyezniük kell.");
-            errors=true;
+            errors = true;
         }
-        else{$("#passwRe_error").text("");}
+        else {
+            $("#passwRe_error").text("");
+        }
 
-        var emailValue=$.trim($("#email").val());
-        if(emailValue==""){
+        var emailValue = $.trim($("#email").val());
+        if (emailValue == "") {
             $("#email_error").text("Írja be az e-mail címét.");
-            errors=true;
+            errors = true;
         }
-        else if(emailValue.length>=50){
+        else if (emailValue.length >= 50) {
             $("#email_error").text("Az e-mail cím legfeljebb 50 karakter lehet.");
-            errors=true;
+            errors = true;
         }
-        else if(emailValue.indexOf('@') < 0 || emailValue.indexOf('.') < 0){
+        else if (emailValue.indexOf('@') < 0 || emailValue.indexOf('.') < 0) {
             $("#email_error").text("Érvénytelen e-mail cím.");
-            errors=true;
-        }else{$("#email_error").text("");}
+            errors = true;
+        } else {
+            $("#email_error").text("");
+        }
 
-        if($.trim($("#fname").val())==""){
+        if ($.trim($("#fname").val()) == "") {
             $("#fname_error").text("Írja be a keresztnevét.");
-            errors=true;
+            errors = true;
         }
-        else{$("#fname_error").text("");}
+        else {
+            $("#fname_error").text("");
+        }
 
-        if($.trim($("#lname").val())==""){
+        if ($.trim($("#lname").val()) == "") {
             $("#lname_error").text("Írja be a vezetéknevét.");
-            errors=true;
+            errors = true;
         }
-        else{$("#lname_error").text("");}
+        else {
+            $("#lname_error").text("");
+        }
 
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#reg").click(function(e){
+        $("#reg").click(function (e) {
             e.preventDefault();
             checkForm();
 
 
-            if(errors==false){
-                var formData=$("#register").serialize();
+            if (errors == false) {
+                var formData = $("#register").serialize();
                 console.log(formData);
 
                 $.ajax({
-                        type        : 'POST',
-                        url         : 'register.php',
-                        data        : formData,
-                        dataType    : 'json',
-                        encode      : true
+                        type: 'POST',
+                        url: 'register.php',
+                        data: formData,
+                        dataType: 'json',
+                        encode: true
                     })
-                    .done(function(data) {
+                    .done(function (data) {
 
-                        if(data.success==true){
+                        if (data.success == true) {
                             $("input").val("");
                             $(".error").text("");
                             alert(data.message);
                         }
-                        else{
+                        else {
                             alert('Failed to register!');
                             console.log(data);
                             $('#email_error').text(data.errors['email']);
@@ -179,7 +194,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="../../Gombak">Gombák</a>
+    <a class="navbar-brand" href="../">Gombások</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -199,7 +214,10 @@
                 <a class="nav-link menu" href="../szabalyok">Szabályok</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link menu" href="../rolam">Rólam</a>
+                <a class="nav-link menu" href="">Rólunk</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu" href="../logout.php?pn=04"><img src="../kepek/logout.png" alt="kijelentkezés" height="45"/></a>
             </li>
         </ul>
     </div>
@@ -211,7 +229,7 @@
 
     <?php
 
-////////////////////////////////////       LOGIN/OUT
+    ////////////////////////////////////       LOGIN/OUT
 
 
     include "../db_config.php";
@@ -251,25 +269,18 @@
         </table>
     </form>';
 
-    }
-    else{
+    } else {
         echo "Be van jelentkezve.";
-        echo '<form method="post" name="logout" action="../logout.php">
-
-       <table border="0" align="center" width="600">
-
-            <tr>
-                    <input type="submit" name="sd" value="Log out">
-            </tr>
-
-        </table>
-    </form>';
     }
 
-////////////////////////////////////       REGISTER
+
+
+    ////////////////////////////////////       REGISTER
 
     ?>
-<hr><hr>
+
+    <hr>
+    <hr>
 
     <form method="post" name="register" action="register.php" id="register">
 
@@ -399,12 +410,13 @@
     if ($p == "1")
         echo "<div class=\"imp\">Error in the security code!</div>";
 
-///////////////////////////////////        EMAIL
+    ///////////////////////////////////        EMAIL
 
     ?>
     <br>
     <h4>Akár innen is küldhet e-mailt:</h4>
     <br>
+
     <form method="post" name="contact" action="mail.php">
 
         <table border="0" align="center" width="600">
@@ -473,12 +485,15 @@
 
         </table>
     </form>
-    <br><hr><br>
+    <br>
+    <hr>
+    <br>
 
     <div>
         <h2>Egy kicsit rólam</h2>
 
         <br>
+
         <div id="right">
             <acronym title="Énekes vetélkedőn"><img alt="Én" src="../kepek/en.jpg" width="360" height="480"/></acronym>
         </div>
@@ -526,19 +541,28 @@
         <h4>Munka, hobbik</h4>
 
         <br>
-        <a href="https://hetnap.rs/cikk/Amikor-a-termeszet-iranti-szeretet-nem-csak-hobbi-27252.html">A Hét Nap egy cikkje a családunkról (egyik tesóm lemaradt)</a>
+        <a href="https://hetnap.rs/cikk/Amikor-a-termeszet-iranti-szeretet-nem-csak-hobbi-27252.html">A Hét Nap egy
+            cikkje a családunkról (egyik tesóm lemaradt)</a>
         <br><br>
 
-        <p>Folyamatosan kapcsolódtam be a családi vállalkozásunkba, a (még akkor) nálam nagyobb csokrok hordásától ezer szál virág szállításáig és eladásáig, egyéb munkákkal együtt.</p>
+        <p>Folyamatosan kapcsolódtam be a családi vállalkozásunkba, a (még akkor) nálam nagyobb csokrok hordásától ezer
+            szál virág szállításáig és eladásáig, egyéb munkákkal együtt.</p>
 
         <p>Azért tanulok, mert szeretek minél több dologhoz érteni, nem tudhatjuk mit hoz a jövő és a
-            családunk munkájában is hasznosítom tanulmányaimat. Emellett mindig is érdekeltek a számítógépek, a különböző programok és az internet.</p>
+            családunk munkájában is hasznosítom tanulmányaimat. Emellett mindig is érdekeltek a számítógépek, a
+            különböző programok és az internet.</p>
 
         <p>A családom egyik hobbija a gombagyűjtés, innen jött az ötlet.
-            Amatőr énekesként fellépek néhány helyen, többek között hálás vagyok a temerini <a href="http://media.rtv.rs/hu/magyar-nyelvu-kulonmusorok/51560">Tini és Ifjúsági Énekes Vetélkedőnek</a> az élményekért. Egy kicsit konyítok a hangszerekhez is.
-            6 éve folyamatosan részt veszek Zentán a Gladiolus Ligában, ahol jobbnál jobb amatőr ping-pongozókkal mérhetem össze tudásom (ajánlom másnak is a részvételt, minden korosztályból lehet találni egy jó ellenfelet), de könnyen rá lehet venni más sportokra is.
-            Agytornának ütöm a billentyűzetet, kínzom az egeret, miközben nézem, hány ellenfél van még talpon, vagy mélyen elmerülök valamilyen tudományos témában, esetleg rejtvényben.
-            Amikor már tényleg fáradt vagyok, kikapcsolnak a filmek, sorozatok, könyvek, animék, mangák, DE csak miután meglocsoltam a növényeimet.
+            Amatőr énekesként fellépek néhány helyen, többek között hálás vagyok a temerini <a
+                href="http://media.rtv.rs/hu/magyar-nyelvu-kulonmusorok/51560">Tini és Ifjúsági Énekes Vetélkedőnek</a>
+            az élményekért. Egy kicsit konyítok a hangszerekhez is.
+            6 éve folyamatosan részt veszek Zentán a Gladiolus Ligában, ahol jobbnál jobb amatőr ping-pongozókkal
+            mérhetem össze tudásom (ajánlom másnak is a részvételt, minden korosztályból lehet találni egy jó
+            ellenfelet), de könnyen rá lehet venni más sportokra is.
+            Agytornának ütöm a billentyűzetet, kínzom az egeret, miközben nézem, hány ellenfél van még talpon, vagy
+            mélyen elmerülök valamilyen tudományos témában, esetleg rejtvényben.
+            Amikor már tényleg fáradt vagyok, kikapcsolnak a filmek, sorozatok, könyvek, animék, mangák, DE csak miután
+            meglocsoltam a növényeimet.
             Természetesen a jó zene hallgatása sem elhanyagolható!
         </p><br/>
 
@@ -546,7 +570,9 @@
     <br><?php
     echo date("Y.m.d.");
 
-    ?><hr><br>
+    ?>
+    <hr>
+    <br>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
