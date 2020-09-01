@@ -3,14 +3,27 @@
 function form($id, $db)
 {
     include "../db_config.php";
-    if($db=="fajok") {
-        $sql = "SELECT id_faj, faj_nev, latin_nev, elofordulas, fogyaszthatosag FROM fajok WHERE id_faj='$id'";
-    }
-    elseif($db=="tagok"){
-        $sql = "SELECT id_tag, felhasznalonev, jelszo, vezeteknev, keresztnev, email, allapot FROM tagok WHERE id_tag='$id'";
-    }
+    $nev ="";
+    $lnev="";
+    $kod="";
+    $fogy="";
+    $leir="";
+    $fnev ="";
+    $jelszo="";
+    $vnev ="";
+    $knev ="";
+    $email="";
+    $all="";
     if($id!="")
     {
+        if($db=="fajok")
+        {
+            $sql = "SELECT id_faj, faj_nev, latin_nev, kod, fogyaszthatosag, leiras FROM fajok WHERE id_faj='$id'";
+        }
+        elseif($db=="tagok")
+        {
+            $sql = "SELECT id_tag, felhasznalonev, jelszo, vezeteknev, keresztnev, email, allapot FROM tagok WHERE id_tag='$id'";
+        }
         mysqli_set_charset($conn, 'utf8');
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -23,8 +36,9 @@ function form($id, $db)
                     while ($row = mysqli_fetch_assoc($result)) {
                         $nev  = $row['faj_nev'];
                         $lnev= $row['latin_nev'];
-                        $elof= $row['elofordulas'];
+                        $kod= $row['kod'];
                         $fogy= $row['fogyaszthatosag'];
+                        $leir= $row['leiras'];
                     }
                 }
                 elseif($db=="tagok"){
@@ -57,8 +71,9 @@ function form($id, $db)
     if($db=="fajok") {
         echo"<label for='fnev'>Faj magyar neve: </label><input type='text' name='fnev' id='fnev' value='$nev'/><br />
 <label for='lnev'>Faj latin neve: </label><input type='text' name='lnev' id='lnev' value='$lnev'/><br />
-<label for='elof'>Faj előfordulása: </label><input type='text' name='elof' id='elof' value='$elof'/><br />
-<label for='fogy'>Faj fogyaszthatósága: </label><input type='text' name='fogy' id='fogy' value='$fogy'/><br />";
+<label for='kod'>Faj kódja: </label><input type='text' name='kod' id='kod' value='$kod'/><br />
+<label for='fogy'>Faj fogyaszthatósága: </label><input type='text' name='fogy' id='fogy' value='$fogy'/><br />
+<label for='leir'>Faj leírása: </label><input type='text' name='leir' id='leir' value='$leir'/><br />";
     }
     elseif($db=="tagok")
     {
@@ -85,31 +100,32 @@ function addNewOrUpdate($db)
     {
         $nev  = $_POST['fnev'];
         $lnev= $_POST['lnev'];
-        $elof= $_POST['elof'];
+        $kod= $_POST['kod'];
         $fogy= $_POST['fogy'];
+        $leir= $_POST['leir'];
         if($id=="")
         {
-            $sql="INSERT INTO fajok (faj_nev, latin_nev, elofordulas, fogyaszthatosag)
-VALUES ('$nev', '$lnev', '$elof', '$fogy')";
+            $sql="INSERT INTO fajok (faj_nev, latin_nev, kod, fogyaszthatosag, leiras)
+VALUES ('$nev', '$lnev', '$kod', '$fogy', '$leir')";
         }
         else{
             $sql="UPDATE fajok
-SET faj_nev='$nev', latin_nev='$lnev', elofordulas='$elof', fogyaszthatosag='$fogy'
+SET faj_nev='$nev', latin_nev='$lnev', kod='$kod', fogyaszthatosag='$fogy', leiras='$leir'
 WHERE id_faj='$id'";
         }
     }
     elseif ($db == "tagok")
     {
-        $fnev= $_POST['$fnev'];
-        $jelszo= $_POST['$jelszo'];
+        $fnev= $_POST['fnev'];
+        $jelszo= $_POST['jelszo'];
         $vnev= $_POST['vnev'];
         $knev= $_POST['knev'];
-        $email= $_POST['$email'];
-        $all= $_POST['$all'];
+        $email= $_POST['email'];
+        $all= $_POST['all'];
         if($id=="")
         {
-            $sql="INSERT INTO tagok (felhasznalonev, jelszo, vezeteknev, keresztnev, email, allapot)
-VALUES ('$fnev', '$jelszo', '$vnev', '$knev', '$email', '$all')";
+            $sql="INSERT INTO tagok (felhasznalonev, jelszo, vezeteknev, keresztnev, email, reg_datum, allapot)
+VALUES ('$fnev', '$jelszo', '$vnev', '$knev', '$email', now(), '$all')";
         }
         else{
             $sql="UPDATE tagok
@@ -120,7 +136,7 @@ WHERE id_tag='$id'";
         mysqli_set_charset($conn, 'utf8');
         if (mysqli_connect_errno())
         {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            $message="Failed to connect to MySQL: " . mysqli_connect_error();
         }
         else{
 
@@ -128,7 +144,7 @@ WHERE id_tag='$id'";
             {
                 die('Error: ' . mysqli_error($conn));
             }
-            echo "Successfully added to the database.";
+            $message="Sikeresen hozzáadva.";
         }
         mysqli_close($conn);
 
@@ -157,7 +173,7 @@ function delete($id, $db)
         {
             die('Error: ' . mysqli_error($conn));
         }
-        echo "Successfully removed from the database.";
+        echo "Sikeresen eltávolítva.";
     }
     mysqli_close($conn);
     header("Location:$db");
