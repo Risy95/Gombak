@@ -4,11 +4,11 @@ include "db_config.php";
 
 session_start();
 
-$un = mysqli_real_escape_string($connection, $_POST["usern"]);
-$pw = mysqli_real_escape_string($connection, $_POST["passw"]);
+$un = mysqli_real_escape_string($conn, $_POST["usern"]);
+$pw = mysqli_real_escape_string($conn, $_POST["passw"]);
 
 $sql = "SELECT felhasznalonev, jelszo FROM tagok WHERE felhasznalonev='$un'";
-$query = mysqli_query($connection, $sql);
+$query = mysqli_query($conn, $sql);
 while($result = mysqli_fetch_array($query))
 {
     if(!empty($pw) AND $result["jelszo"]==$pw)
@@ -18,4 +18,4 @@ while($result = mysqli_fetch_array($query))
     }
 }
 
-header("Location:rolam");
+header("Location:profil");
