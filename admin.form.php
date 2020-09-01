@@ -1,7 +1,8 @@
 <?php
 include "functions.php";
 @$idB=$_POST['id'];
-@$db=$_GET['db'];
+if(!empty($_GET['db']))
+$db=$_GET['db'];
 $len=strlen($idB);
 //var_dump($idB);
 //echo substr($idB,$len-1,$len-1);
