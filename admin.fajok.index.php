@@ -63,18 +63,18 @@ if (!$conn) {
 die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT id_faj, faj_nev, latin_nev, elofordulas, fogyaszthatosag FROM fajok";
+$sql = "SELECT id_faj, faj_nev, latin_nev, kod, fogyaszthatosag, leiras FROM fajok";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
 if (mysqli_num_rows($result) > 0) {
 
-    echo '<form action="../form.php?db=fajok" method="post"><button>Új faj hozzáadása</button><table border="black"><tr><td>Faj név</td><td>Latin név</td><td>Előfordulás</td><td>Fogyaszthatóság</td></tr>';
+    echo '<form action="../form.php?db=fajok" method="post"><button>Új faj hozzáadása</button><table border="black"><tr><td>Faj név</td><td>Latin név</td><td>Kód</td><td>Fogyaszthatóság</td><td>Leírás</td></tr>';
 
 
     while($row = mysqli_fetch_assoc($result)) {
 
         $idB=$row["id_faj"];
-        echo "<tr><td>".$row["faj_nev"]."</td><td>".$row["latin_nev"]."</td><td>".$row["elofordulas"]."</td><td>".$row["fogyaszthatosag"]."</td>";
+        echo "<tr><td>".$row["faj_nev"]."</td><td>".$row["latin_nev"]."</td><td>".$row["kod"]."</td><td>".$row["fogyaszthatosag"]."</td><td>".$row["leiras"]."</td>";
         echo "<td><button type='submit' name='id' value='$idB.2'>Változtatás</button></td><td><button type='submit' name='id' value='$idB.1'>Törlés</button></td></tr>";
 
 
