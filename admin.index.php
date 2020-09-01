@@ -1,128 +1,180 @@
-<? xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="hu" lang="hu">
-<head>
-    <title>Admin - Gombások</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Kovács Kristóf"/>
-    <meta name="robots" content="noindex, nofollow"/>
-    <meta name="language" content="Hungarian"/>
-    <meta name="googlebot" content="noindex, nofollow"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="content-language" content="HU"/>
-    <meta name="MobileOptimized" content="width"/>
-    <meta name="HandheldFriendly" content="true"/>
-    <meta name="google" content="notranslate"/>
-    <!--    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="../css/1.css"/>
-    <link type="text/css" rel="stylesheet" href="admin.css"/>
-    <!--    <link rel="shortcut icon" href="http://gombasok.000webhostapp.com/kepek/gyapjas4.jpg" type="image/x-icon"/>-->
-    <link rel="shortcut icon" href="../kepek/gyapjas4.jpg" type="image/x-icon"/>
-
-</head>
-<body>
 <?php
-//////////////////////////////////// LOGIN
 
+function form($id, $db)
+{
+    include "../db_config.php";
+    $nev ="";
+    $lnev="";
+    $kod="";
+    $fogy="";
+    $leir="";
+    $fnev ="";
+    $jelszo="";
+    $vnev ="";
+    $knev ="";
+    $email="";
+    $all="";
+    if($id!="")
+    {
+        if($db=="fajok")
+        {
+            $sql = "SELECT id_faj, faj_nev, latin_nev, kod, fogyaszthatosag, leiras FROM fajok WHERE id_faj='$id'";
+        }
+        elseif($db=="tagok")
+        {
+            $sql = "SELECT id_tag, felhasznalonev, jelszo, vezeteknev, keresztnev, email, allapot FROM tagok WHERE id_tag='$id'";
+        }
+        mysqli_set_charset($conn, 'utf8');
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        } else {
 
-session_start();
+            $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
+            if (mysqli_num_rows($result) > 0) {
+                if($db=="fajok") {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $nev  = $row['faj_nev'];
+                        $lnev= $row['latin_nev'];
+                        $kod= $row['kod'];
+                        $fogy= $row['fogyaszthatosag'];
+                        $leir= $row['leiras'];
+                    }
+                }
+                elseif($db=="tagok"){
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $fnev = $row['felhasznalonev'];
+                        $jelszo=$row['jelszo'];
+                        $vnev =$row['vezeteknev'];
+                        $knev =$row['keresztnev'];
+                        $email =$row['email'];
+                        $all=$row['allapot'];
+                    }
+                }
+            } else {
+                echo "No result!";
+            }
+            mysqli_close($conn);
+        }
+    }
+    echo "<?xml version='1.0' encoding='UTF-8'?>
+    <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+    <html xmlns='http://www.w3.org/1999/xhtml' xml:lang='hu' lang='hu'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Admin - Gombások</title>
+        <link type='text/css' rel='stylesheet' href='style1.css' />
+    </head>
+    <body>
+        <form action='writeToDatabase.php?db=$db' method='post'>
+        <input type='hidden' name='id' value='$id'/>";
+    if($db=="fajok") {
+        echo"<label for='fnev'>Faj magyar neve: </label><input type='text' name='fnev' id='fnev' value='$nev'/><br />
+<label for='lnev'>Faj latin neve: </label><input type='text' name='lnev' id='lnev' value='$lnev'/><br />
+<label for='kod'>Faj kódja: </label><input type='text' name='kod' id='kod' value='$kod'/><br />
+<label for='fogy'>Faj fogyaszthatósága: </label><input type='text' name='fogy' id='fogy' value='$fogy'/><br />
+<label for='leir'>Faj leírása: </label><input type='text' name='leir' id='leir' value='$leir'/><br />";
+    }
+    elseif($db=="tagok")
+    {
+        echo "<label for='fnev'>Felhasználónév: </label><input type='text' name='fnev' id='fnev' value='$fnev'/><br />
+<label for='jelszo'>Jelszó: </label><input type='text' name='jelszo' id='jelszo' value='$jelszo'/><br />
+<label for='vnev'>Vezetéknév: </label><input type='text' name='vnev' id='vnev' value='$vnev'/><br />
+<label for='knev'>Keresztnév: </label><input type='text' name='knev' id='knev' value='$knev'/><br />
+<label for='email'>E-mail: </label><input type='text' name='email' id='email' value='$email'/><br />
+<label for='all'>Állapot: </label><input type='text' name='all' id='all' value='$all'/><br />";
+    }
+    echo    "<br /><input type='submit'>
+        </form>
+    </body>
+</html>
 
-include "../db_config.php";
-
-if (!isset($_SESSION["log"]) || empty($_SESSION["log"])) {
-    unset($_SESSION["log"]);
-    echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-
-    <!-- Brand -->
-    <a class="navbar-brand" href="..">Gombások</a>
-
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-        </ul>
-    </div>
-</nav>';
-    echo '<h1>Adminisztrációhoz jelentkezzen be!</h1><br><br>';
-
-    echo '<form method="post" name="login" action="login.php">
-
-    <table border="0" align="center" width="600">
-        <tr>
-            <td align="right"><b>Felhasználónév:</b></td>
-            <td align="left" colspan="2"><input type="text" name="usern" size="30"></td>
-        </tr>
-
-        <tr>
-            <td colspan="3">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td align="right"><b>Jelszó:</b></td>
-            <td align="left" colspan="2"><input type="password" name="passw" size="30"></td>
-        </tr>
-
-        <tr>
-            <td colspan="3">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td>&nbsp;</td>
-            <td align="left" colspan="2">
-                <input type="submit" name="sd" value="Log in">&nbsp;
-                <input type="reset" name="rd" value="Cancel"></td>
-        </tr>
-
-    </table>
-</form>';
-
-} else {
-    echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-
-    <!-- Brand -->
-    <a class="navbar-brand" href="..">Gombások</a>
-
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link menu" href="tagok">Felhasználók</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu" href="fajok">Fajták</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu" href="../logout.php?pn=10"><img src="../kepek/logout.png" alt="kijelentkezés" height="45"/></a>
-            </li>
-        </ul>
-    </div>
-</nav>';
+    ";
 }
 
-?>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="../javascript/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-</body>
+function addNewOrUpdate($db)
+{
+    include "../db_config.php";
+    $id=$_POST['id'];
+    if ($db == "fajok")
+    {
+        $nev  = $_POST['fnev'];
+        $lnev= $_POST['lnev'];
+        $kod= $_POST['kod'];
+        $fogy= $_POST['fogy'];
+        $leir= $_POST['leir'];
+        if($id=="")
+        {
+            $sql="INSERT INTO fajok (faj_nev, latin_nev, kod, fogyaszthatosag, leiras)
+VALUES ('$nev', '$lnev', '$kod', '$fogy', '$leir')";
+        }
+        else{
+            $sql="UPDATE fajok
+SET faj_nev='$nev', latin_nev='$lnev', kod='$kod', fogyaszthatosag='$fogy', leiras='$leir'
+WHERE id_faj='$id'";
+        }
+    }
+    elseif ($db == "tagok")
+    {
+        $fnev= $_POST['fnev'];
+        $jelszo= $_POST['jelszo'];
+        $vnev= $_POST['vnev'];
+        $knev= $_POST['knev'];
+        $email= $_POST['email'];
+        $all= $_POST['all'];
+        if($id=="")
+        {
+            $sql="INSERT INTO tagok (felhasznalonev, jelszo, vezeteknev, keresztnev, email, reg_datum, allapot)
+VALUES ('$fnev', '$jelszo', '$vnev', '$knev', '$email', now(), '$all')";
+        }
+        else{
+            $sql="UPDATE tagok
+SET felhasznalonev='$fnev', jelszo='$jelszo', vezeteknev='$vnev', keresztnev='$knev', email='$email', allapot='$all'
+WHERE id_tag='$id'";
+        }
+    }
+        mysqli_set_charset($conn, 'utf8');
+        if (mysqli_connect_errno())
+        {
+            $message="Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        else{
 
-</html>
+            if (!mysqli_query($conn,$sql))
+            {
+                die('Error: ' . mysqli_error($conn));
+            }
+            $message="Sikeresen hozzáadva.";
+        }
+        mysqli_close($conn);
+
+    header("Location:$db");
+
+}
+
+function delete($id, $db)
+{
+    include "../db_config.php";
+    if($db=="fajok")
+    {
+        $sql="DELETE FROM fajok WHERE id_faj='$id'";
+    }
+    elseif($db="tagok")
+    {
+        $sql="DELETE FROM tagok WHERE id_tag='$id'";
+    }
+    mysqli_set_charset($conn, 'utf8');
+    if (mysqli_connect_errno())
+    {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+    else{
+        if (!mysqli_query($conn,$sql))
+        {
+            die('Error: ' . mysqli_error($conn));
+        }
+        echo "Sikeresen eltávolítva.";
+    }
+    mysqli_close($conn);
+    header("Location:$db");
+}
