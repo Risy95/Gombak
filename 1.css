@@ -4,7 +4,7 @@ body{
 	background-position:center;
 	background-repeat:repeat-y;
 	text-align:center;
-	margin:0px;
+	margin:4% 0 0 0;
     overflow:scroll;
 }
 .navbar-nav{
@@ -45,6 +45,12 @@ div.container-fluid{
 	padding-right:20%;
 	text-align:left;
 }
+@media (max-width: 800px) {
+	div.container-fluid {
+		padding-left:5%;
+		padding-right:5%;
+	}
+}
 .imp{
 	color:brown;
 	font-weight:bold;
@@ -52,8 +58,14 @@ div.container-fluid{
 hr{
 	border-color:#208000;
 }
-.good{
+.excellent{
 	border:5px solid #208000;
+}
+.good{
+	border:5px solid #608000;
+}
+.neutral{
+	border:5px solid #c08000;
 }
 .bad{
 	border:5px solid red
